@@ -1,5 +1,8 @@
 package com.employee.service;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +22,43 @@ public class EmployeeServiceImpl implements EmployeeService {
 			return "Data not saved";
 		}
 		return "Data saved Successfully";
+	}
+
+	@Override
+	public List<Employee> getAllEmployees() {
+		List<Employee> response = employeeRepository.findAll();
+		if (response == null) {
+			throw new RuntimeException("Data is empty");
+		}
+		return response;
+	}
+
+	@Override
+	public Employee getEmployeeById(Integer employeeId) {
+		Optional<Employee> employee = employeeRepository.findById(employeeId);
+		if (!employee.isPresent()) {
+			throw new RuntimeException("Data is not exists");
+		}
+		return employee.get();
+	}
+
+	@Override
+	public List<Employee> getEmployeeByName(String employeeName) {
+		Optional<List<Employee>> employee = employeeRepository.findByEmployeeName(employeeName);
+		if (!employee.isPresent()) {
+			throw new RuntimeException("Data is not exists");
+		}
+		return employee.get();
+	}
+
+	@Override
+	public Employee login(String loginId, String password) {
+		//Optional<Employee> employee = employeeRepository.findByLoginIdAndPassword(loginId, password);
+		Optional<Employee> employee = employeeRepository.getByLoginIdAndPassword(loginId, password);
+		if (!employee.isPresent()) {
+			throw new RuntimeException("Data is not exists");
+		}
+		return employee.get();
 	}
 
 }

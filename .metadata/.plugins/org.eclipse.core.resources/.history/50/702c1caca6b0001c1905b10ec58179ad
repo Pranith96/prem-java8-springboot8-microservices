@@ -1,0 +1,25 @@
+package com.employee.repository;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import com.employee.entity.Employee;
+
+@Repository
+public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
+
+	Optional<List<Employee>> findByEmployeeName(String employeeName);
+
+	// Optional<Employee> findByLoginIdAndPassword(String loginId, String password);
+
+	@Query("select e Employee e where e.loginId=:loginId and e.password=:password ")
+	Optional<Employee> getByLoginIdAndPassword(String loginId, String password);
+
+	@Query(value = "select * from employee_table where login_id=:loginId and password=:password")
+	Optional<Employee> getByLoginIdAndPassword(String loginId, String password);
+
+}
