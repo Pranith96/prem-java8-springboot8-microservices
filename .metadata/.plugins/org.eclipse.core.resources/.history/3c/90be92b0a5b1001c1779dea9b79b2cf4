@@ -1,0 +1,8 @@
+package com.employee.entity;
+
+public class Company {
+
+	private Integer companyId;
+	private String companyName;
+	private String companyCode;
+}

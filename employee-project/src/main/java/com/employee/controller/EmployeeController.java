@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.employee.dto.EmployeeDto;
 import com.employee.entity.Employee;
 import com.employee.service.EmployeeService;
 
@@ -38,7 +39,22 @@ public class EmployeeController {
 	}
 
 	@GetMapping("/get/{employeeId}")
-	public ResponseEntity<Employee> getEmployee(@PathVariable("employeeId") Integer employeeId) {
+	public ResponseEntity<EmployeeDto> getEmployee(@PathVariable("employeeId") Integer employeeId) {
+		Employee response = employeeService.getEmployeeById(employeeId);
+		EmployeeDto employeeDto = new EmployeeDto();
+		employeeDto.setEmail(response.getEmail());
+		employeeDto.setEmployeeName(response.getEmployeeName());
+		employeeDto.setMobileNumber(response.getMobileNumber());
+		employeeDto.setCity(response.getAddress().getCity());
+		employeeDto.setLocality(response.getAddress().getLocality());
+		employeeDto.setPincode(response.getAddress().getPincode());
+		employeeDto.setPlotNo(response.getAddress().getPlotNo());
+		employeeDto.setState(response.getAddress().getState());
+		return ResponseEntity.status(HttpStatus.OK).body(employeeDto);
+	}
+	
+	@GetMapping("/get/id/{employeeId}")
+	public ResponseEntity<Employee> getEmployeeDetails(@PathVariable("employeeId") Integer employeeId) {
 		Employee response = employeeService.getEmployeeById(employeeId);
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
@@ -68,9 +84,9 @@ public class EmployeeController {
 		String response = employeeService.updateEmployeeName(employeeName, employeeId);
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
-	
+
 	@DeleteMapping("/delete/{employeeId}")
-	public ResponseEntity<String> deleteEmployee(@PathVariable("employeeId") Integer employeeId){
+	public ResponseEntity<String> deleteEmployee(@PathVariable("employeeId") Integer employeeId) {
 		String response = employeeService.deleteEmployeeById(employeeId);
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}

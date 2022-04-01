@@ -1,5 +1,7 @@
 package com.employee.entity;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,6 +9,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -29,8 +34,33 @@ public class Employee {
 	@Column(name = "password")
 	private String password;
 
+	@ManyToOne(cascade = CascadeType.ALL, targetEntity = Company.class)
+	@JoinColumn(name = "company_id")
+	private Company company;
+
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "employee_project", joinColumns = { @JoinColumn(name = "employeeId") }, inverseJoinColumns = {
+			@JoinColumn(name = "projectId") })
+	private List<Project> project;
+
+	public List<Project> getProject() {
+		return project;
+	}
+
+	public void setProject(List<Project> project) {
+		this.project = project;
+	}
+
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
+
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="address_id")
+	@JoinColumn(name = "address_id")
 	private Address address;
 
 	public Address getAddress() {
