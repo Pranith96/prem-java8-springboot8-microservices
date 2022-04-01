@@ -1,10 +1,13 @@
 package com.employee.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -25,6 +28,18 @@ public class Employee {
 	private String loginId;
 	@Column(name = "password")
 	private String password;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="address_id")
+	private Address address;
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
 
 	public Integer getEmployeeId() {
 		return employeeId;

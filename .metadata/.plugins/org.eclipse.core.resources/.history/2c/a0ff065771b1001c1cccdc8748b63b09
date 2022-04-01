@@ -1,0 +1,10 @@
+package com.employee.entity;
+
+import javax.persistence.Entity;
+
+@Entity
+public class Addition {
+
+	private Integer addressId;
+	
+}

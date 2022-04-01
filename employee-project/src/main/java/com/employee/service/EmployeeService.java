@@ -16,4 +16,10 @@ public interface EmployeeService {
 
 	Employee login(String loginId, String password);
 
+	String updateEmployee(Employee employee);
+
+	String updateEmployeeName(String employeeName, Integer employeeId);
+
+	String deleteEmployeeById(Integer employeeId);
+
 }

@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -50,7 +52,26 @@ public class EmployeeController {
 	@GetMapping("/login/{loginId}/{password}")
 	public ResponseEntity<Employee> employeeLogin(@PathVariable("loginId") String loginId,
 			@PathVariable("password") String password) {
-		Employee response = employeeService.login(loginId,password);
+		Employee response = employeeService.login(loginId, password);
+		return ResponseEntity.status(HttpStatus.OK).body(response);
+	}
+
+	@PutMapping("/update")
+	public ResponseEntity<String> updateEmployee(@RequestBody Employee employee) {
+		String response = employeeService.updateEmployee(employee);
+		return ResponseEntity.status(HttpStatus.OK).body(response);
+	}
+
+	@PutMapping("/update/name/{employeeId}")
+	public ResponseEntity<String> updateEmployeeName(@RequestParam("employeeName") String employeeName,
+			@PathVariable("employeeId") Integer employeeId) {
+		String response = employeeService.updateEmployeeName(employeeName, employeeId);
+		return ResponseEntity.status(HttpStatus.OK).body(response);
+	}
+	
+	@DeleteMapping("/delete/{employeeId}")
+	public ResponseEntity<String> deleteEmployee(@PathVariable("employeeId") Integer employeeId){
+		String response = employeeService.deleteEmployeeById(employeeId);
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 }
