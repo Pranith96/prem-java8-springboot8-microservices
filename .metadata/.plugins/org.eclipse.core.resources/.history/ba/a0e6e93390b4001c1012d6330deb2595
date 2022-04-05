@@ -1,0 +1,14 @@
+package com.employee.exceptions;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+@RestControllerAdvice
+public class EmployeeExceptionHandler {
+
+	@ExceptionHandler(EmployeeBusinessException.class)
+	public ResponseEntity<ExceptionResponse> handleEmployeeBusinessException(EmployeeBusinessException ex) {
+
+	}
+}

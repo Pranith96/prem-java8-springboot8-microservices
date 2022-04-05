@@ -1,0 +1,9 @@
+package com.employee.exceptions;
+
+public class ExceptionResponse {
+	
+	private String message;
+	private String description;
+	private String exceptionCode;
+
+}

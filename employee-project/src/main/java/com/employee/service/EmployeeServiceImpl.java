@@ -4,14 +4,17 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.employee.entity.Employee;
+import com.employee.exceptions.EmployeeBusinessException;
 import com.employee.repository.EmployeeRepository;
 
 @Transactional
 @Service
+@Profile(value = { "local", "dev", "prod", "qa" })
 public class EmployeeServiceImpl implements EmployeeService {
 
 	@Autowired
@@ -40,7 +43,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public Employee getEmployeeById(Integer employeeId) {
 		Optional<Employee> employee = employeeRepository.findById(employeeId);
 		if (!employee.isPresent()) {
-			throw new RuntimeException("Data is not exists");
+			throw new EmployeeBusinessException("Data is not exists for given id");
 		}
 		return employee.get();
 	}
@@ -49,7 +52,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public List<Employee> getEmployeeByName(String employeeName) {
 		Optional<List<Employee>> employee = employeeRepository.findByEmployeeName(employeeName);
 		if (!employee.isPresent()) {
-			throw new RuntimeException("Data is not exists");
+			throw new EmployeeBusinessException("Data is not exists oe empty");
 		}
 		return employee.get();
 	}
@@ -60,7 +63,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		// employeeRepository.findByLoginIdAndPassword(loginId, password);
 		Optional<Employee> employee = employeeRepository.getByLoginIdAndPassword(loginId, password);
 		if (!employee.isPresent()) {
-			throw new RuntimeException("Data is not exists");
+			throw new EmployeeBusinessException("Data is not exists for login");
 		}
 		return employee.get();
 	}
@@ -109,7 +112,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		} catch (RuntimeException ex) {
 			ex.printStackTrace();
 		}
-		//employeeRepository.deleteById(employeeId);
+		// employeeRepository.deleteById(employeeId);
 		employeeRepository.delete(response);
 		return "deleted successfully";
 	}

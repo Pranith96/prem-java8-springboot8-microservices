@@ -1,0 +1,22 @@
+package com.employee.exceptions;
+
+import java.time.LocalDateTime;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+@RestControllerAdvice
+public class EmployeeExceptionHandler {
+
+	@ExceptionHandler(EmployeeBusinessException.class)
+	public ResponseEntity<ExceptionResponse> handleEmployeeBusinessException(EmployeeBusinessException ex) {
+		ExceptionResponse exceptionResponse = new ExceptionResponse();
+		exceptionResponse.setDescription("Employee Data Not Found");
+		exceptionResponse.setMessage(ex.getMessage());
+		exceptionResponse.setExceptionCode(HttpStatus.NOT_FOUND.toString());
+		exceptionResponse.setDateTime(LocalDateTime.now());
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exceptionResponse);
+	}
+}
