@@ -3,6 +3,7 @@ package com.employee.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,26 +20,32 @@ import com.employee.dto.EmployeeDto;
 import com.employee.entity.Employee;
 import com.employee.service.EmployeeService;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {
 
+	//@Qualifier("service1")
 	@Autowired
 	private EmployeeService employeeService;
 
 	@PostMapping("/save")
+	@ApiOperation(value = "Employee account Creation API", notes = "Please provide all the info for Employee account creation", response = Employee.class)
 	public ResponseEntity<String> createEmployeeAccount(@RequestBody Employee employee) {
 		String response = employeeService.saveEmployee(employee);
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 
 	@GetMapping("/get/all")
+	@ApiOperation(value = "Employee Details Fetch API", notes = "All the list of employees will be fetched", response = Employee.class)
 	public ResponseEntity<List<Employee>> getAllEmployees() {
 		List<Employee> response = employeeService.getAllEmployees();
 		return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 
 	@GetMapping("/get/{employeeId}")
+	@ApiOperation(value = "Employee Details fetch by Id API", notes = "Please provide all the info for Employee Deatils fetch", response = Employee.class)
 	public ResponseEntity<EmployeeDto> getEmployee(@PathVariable("employeeId") Integer employeeId) {
 		Employee response = employeeService.getEmployeeById(employeeId);
 		EmployeeDto employeeDto = new EmployeeDto();
@@ -52,7 +59,7 @@ public class EmployeeController {
 		employeeDto.setState(response.getAddress().getState());
 		return ResponseEntity.status(HttpStatus.OK).body(employeeDto);
 	}
-	
+
 	@GetMapping("/get/id/{employeeId}")
 	public ResponseEntity<Employee> getEmployeeDetails(@PathVariable("employeeId") Integer employeeId) {
 		Employee response = employeeService.getEmployeeById(employeeId);

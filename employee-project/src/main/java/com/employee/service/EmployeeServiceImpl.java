@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,8 +13,9 @@ import com.employee.entity.Employee;
 import com.employee.exceptions.EmployeeBusinessException;
 import com.employee.repository.EmployeeRepository;
 
+@Primary
 @Transactional
-@Service
+@Service("service1")
 @Profile(value = { "local", "dev", "prod", "qa" })
 public class EmployeeServiceImpl implements EmployeeService {
 

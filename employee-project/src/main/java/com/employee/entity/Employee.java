@@ -12,26 +12,40 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 @Entity
 @Table(name = "employee_table")
+@ApiModel(description = "Details About the Employee")
+//@Setter
+//@Getter
+//@AllArgsConstructor
+//@NoArgsConstructor
+//@Data
 public class Employee {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "employee_id")
+	@ApiModelProperty(notes = "The Unique Employee Id as primary key")
 	private Integer employeeId;
 	@Column(name = "employee_name")
+	@ApiModelProperty(notes = "employee name as string")
 	private String employeeName;
 	@Column(name = "mobile_number")
+	@ApiModelProperty(notes = "mobile numder as a string")
 	private String mobileNumber;
 	@Column(name = "email_id")
+	@ApiModelProperty(notes = "email as string")
 	private String email;
 	@Column(name = "login_id", unique = true, nullable = false)
+	@ApiModelProperty(notes = "The Unique login id")
 	private String loginId;
 	@Column(name = "password")
+	@ApiModelProperty(notes = "The Password as string")
 	private String password;
 
 	@ManyToOne(cascade = CascadeType.ALL, targetEntity = Company.class)
@@ -42,34 +56,6 @@ public class Employee {
 	@JoinTable(name = "employee_project", joinColumns = { @JoinColumn(name = "employeeId") }, inverseJoinColumns = {
 			@JoinColumn(name = "projectId") })
 	private List<Project> project;
-
-	public List<Project> getProject() {
-		return project;
-	}
-
-	public void setProject(List<Project> project) {
-		this.project = project;
-	}
-
-	public Company getCompany() {
-		return company;
-	}
-
-	public void setCompany(Company company) {
-		this.company = company;
-	}
-
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "address_id")
-	private Address address;
-
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
 
 	public Integer getEmployeeId() {
 		return employeeId;
@@ -117,6 +103,22 @@ public class Employee {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
+
+	public List<Project> getProject() {
+		return project;
+	}
+
+	public void setProject(List<Project> project) {
+		this.project = project;
 	}
 
 }
