@@ -2,6 +2,12 @@
 <section name="Workbench">
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="C:\Users\ramannpr\support_works\prem-java8-springboot-microservices\ecommerce-zuul-apigateway"/>
+			<item value="C:\Users\ramannpr\support_works\prem-java8-springboot-microservices\zipkin-server"/>
+			<item value="C:\Users\ramannpr\support_works\prem-java8-springboot-microservices\eurekaserver"/>
+			<item value="C:\Users\ramannpr\support_works\prem-java8-springboot-microservices\ecommerce-shared-lib"/>
+			<item value="C:\Users\ramannpr\support_works\prem-java8-springboot-microservices\ecommerce-product-service"/>
+			<item value="C:\Users\ramannpr\support_works\prem-java8-springboot-microservices\ecommerce-cart-service"/>
 			<item value="C:\Users\ramannpr\spring_boot_applications\springbooth2databse"/>
 			<item value="C:\Users\ramannpr\spring_boot_applications\bank-application"/>
 			<item value="C:\Users\ramannpr\support_works\prem-java8-springboot-microservices\employee-project"/>

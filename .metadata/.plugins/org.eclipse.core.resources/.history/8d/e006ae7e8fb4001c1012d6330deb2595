@@ -1,5 +1,0 @@
-package com.employee.exceptions;
-
-public class EmployeeBusinessException extends RuntimeException {
-
-}
